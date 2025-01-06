@@ -6,7 +6,8 @@ class Shell:
     COMMANDS = {
         "echo": "shell builtin",
         "exit": "shell builtin",
-        "type": "shell builtin"
+        "type": "shell builtin",
+        "pwd": "shell builtin"
     }
 
     def __init__(self):
@@ -41,7 +42,8 @@ class Shell:
 
         handlers = {
             "echo": self.process_echo,
-            "type": self.process_type
+            "type": self.process_type,
+            "pwd": self.process_pwd
         }
 
         handler = handlers.get(cmd)
@@ -64,6 +66,8 @@ class Shell:
 
         print(f"{command}: command not found")
 
+    def process_pwd(self, args: List[str]) -> None:
+        print(os.getcwd())
 
 if __name__ == "__main__":
     shell = Shell()
