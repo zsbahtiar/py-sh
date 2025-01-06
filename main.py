@@ -4,7 +4,9 @@ from typing import List
 
 class Shell:
     COMMANDS = {
-        "echo": "shell builtin"
+        "echo": "shell builtin",
+        "exit": "shell builtin",
+        "type": "shell builtin"
     }
 
     def __init__(self):
@@ -38,7 +40,8 @@ class Shell:
             return
 
         handlers = {
-            "echo": self.process_echo
+            "echo": self.process_echo,
+            "type": self.process_type
         }
 
         handler = handlers.get(cmd)
@@ -49,6 +52,18 @@ class Shell:
 
     def process_echo(self, args: List[str]) -> None:
         print(" ".join(args))
+
+    def process_type(self, args: List[str]) -> None:
+        if not args:
+            print("type: missing command name")
+            return
+        command = args[0]
+        if command in self.COMMANDS:
+            print(f"{command} is a {self.COMMANDS[command]}")
+            return
+
+        print(f"{command}: command not found")
+
 
 if __name__ == "__main__":
     shell = Shell()
